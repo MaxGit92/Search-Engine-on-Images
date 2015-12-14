@@ -10,7 +10,7 @@ import edu.cmu.lti.ws4j.impl.WuPalmer;
 
 public class MultiClassHier extends MultiClass{
 
-	private double[][] distances;
+	private double[][] distances; // Matrice contenant la distance de similarité entre classes
 	private Map<String, Integer> matching;
 
 	public MultiClassHier(Set<String> enumerate) {
@@ -34,13 +34,5 @@ public class MultiClassHier extends MultiClass{
 	public double delta(String y1, String y2) {
 		return distances[matching.get(y1)][matching.get(y2)];
 	}
-	
-//	public static void main(String args[]){
-//		ILexicalDatabase db = new NictWordNet();
-//		RelatednessCalculator calculator = new WuPalmer(db);
-//		String w1 = "m";
-//		String w2 = "dick";
-//		System.out.println(calculator.calcRelatednessOfWords(w1, w2));
-//	}
 	
 }

@@ -27,6 +27,10 @@ public class DataSet<X,Y>  implements Serializable{
 		this.listtest = listtest;
 	}
 	
+	/**
+	 * Deuxième constructeur pour charger et créer le dataSet à partir d'un objet serialisé
+	 * @param filename
+	 */
 	public DataSet(String filename) {
 		super();
 		try {
@@ -50,7 +54,7 @@ public class DataSet<X,Y>  implements Serializable{
 	}
 	
 	/**
-	 * serialise l'objet dataset dans le fichier nommï¿½ nomFichier
+	 * Serialise l'objet dataset dans le fichier nommé nomFichier
 	 * @param nomFichier
 	 * @throws IOException
 	 */

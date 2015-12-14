@@ -45,8 +45,8 @@ public class VisualIndexes implements Serializable{
 		}
 		return new DataSet<double[], String>(listtrain, listtest);
 	}
+
 	
-	// nbComp = 250
 	public static DataSet<double[], String> enregistrerDataSet(String sourcePath, String destPath, int nbComp) throws Exception {
 		DataSet<double[], String> dataset = VisualIndexes.creerDataSet(sourcePath);
 		if (nbComp > 0){
@@ -62,11 +62,6 @@ public class VisualIndexes implements Serializable{
 		int nbComp = 250;
 		String sourcePath = "/users/nfs/Enseignants/thomen/Bases/ImageNet/BoF/txt/";
 		VisualIndexes.enregistrerDataSet(sourcePath, destPath, nbComp);
-		/*
-		@SuppressWarnings("rawtypes")
-		DataSet<X,Y> dataset = new DataSet<X, Y>(destPath);
-		System.out.println(dataset.listtrain.get(2).input);
-		*/
 		
 	}
 	

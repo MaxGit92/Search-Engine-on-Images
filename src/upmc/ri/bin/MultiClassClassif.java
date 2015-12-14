@@ -11,11 +11,12 @@ import upmc.ri.struct.training.SGDTrainer;
 public class MultiClassClassif {
 	
 	public static void main(String args[]){
-		String filename = "/tmp/dataSet.ser";
+		String filename = "dataSet.ser";
 
 		DataSet<double[], String> ds = new DataSet<double[], String>(filename);
+		//MultiClass multiClass = new MultiClass(ImageNetParser.classesImageNet());
 		MultiClass multiClass = new MultiClassHier(ImageNetParser.classesImageNet());
-		
+
 		LinearStructModel_Ex<double[], String> linearStructModel_Ex = new LinearStructModel_Ex<double[], String>(multiClass,
 				ds.listtrain.get(0).input.length*multiClass.enumerateY().size());
 
@@ -24,12 +25,13 @@ public class MultiClassClassif {
 		evaluator.setListtest(ds.listtest);
 		evaluator.setModel(linearStructModel_Ex);
 		
-		int T = 500;
-		double eta = 2e-1;  //1e-2
+		int T = 300;
+		double eta = 2e-1;//1e-2;
 		double lambda=1e-6;
 		SGDTrainer<double[], String> sgdTrainer = new SGDTrainer<double[], String>(evaluator, T, eta, lambda);
 		sgdTrainer.train(ds.listtrain, linearStructModel_Ex);
 		multiClass.confusionMatrix(linearStructModel_Ex.predictAll(ds.listtest), ds.listtest);
-		System.out.println("FINI (pour toi Paul)");
+		System.out.println("FINI");
 	}
 }
+

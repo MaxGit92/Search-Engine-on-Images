@@ -67,7 +67,6 @@ public class SGDTrainer<X,Y> implements ITrainer<X,Y>{
 		int N = lts.size();
 		double[] w = model.getParameters();
 		Random generator = new Random();
-		//if(!(lts.get(0).output instanceof RankingOutput)){
 		IStructInstantiation <X,Y> structInstantiation = model.instantiation();
 		for(int t=0; t<T; t++){
 			if(t%10==0){
@@ -90,34 +89,6 @@ public class SGDTrainer<X,Y> implements ITrainer<X,Y>{
 					w[j] = w[j] - eta*(lambda*w[j] + gi[j]); // Mise à jour des poids
 				}
 			}
-			//}
-			/*
-		}else{
-			for(int t=0; t<T; t++){
-				RankingInstantiation rankingInstantiation = new RankingInstantiation();
-				@SuppressWarnings("unchecked")
-				List<double[]> x = (List<double[]>) lts.get(0).input;
-				RankingOutput y = (RankingOutput) lts.get(0).output;
-				double[] psi = rankingInstantiation.psi(x, y);
-				if(t%10==0){
-					System.out.println(t);
-					evaluator.evaluate();
-					System.out.println("Err train: "+evaluator.getErr_train());
-					System.out.println("Err test:  "+evaluator.getErr_test());
-				}
-				for(int i=0; i<N; i++){
-					int index = generator.nextInt(N);
-					STrainingSample<X, Y> sample = lts.get(index);
-					Y yHat = model.lai(sample); // Loss augmented inference
-					double[] gi = new double[psi.length];
-					for(int j=0; j<gi.length; j++){
-						gi[j] = psi[y.getRanking().g] - psi[j]; // Calcul du gradient
-					}
-					for(int j=0; j<w.length; j++){
-						w[j] = w[j] - eta*(lambda*w[j] + gi[j]); // Mise à jour des poids
-					}
-				}
-			}*/
 		}
 	}
 

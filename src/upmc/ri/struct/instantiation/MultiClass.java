@@ -22,6 +22,11 @@ public class MultiClass implements IStructInstantiation<double[], String>{
 		this.matching = matching();
 	}
 
+	/**
+	 * Retourne la map permettant d'accéder plus rapidemment à un bow
+	 * @param sizeBow
+	 * @return
+	 */
 	public Map<String, Integer> indexation(int sizeBow){
 		Map<String, Integer> index = new HashMap<String, Integer>();
 		int cpt=0;
@@ -54,6 +59,10 @@ public class MultiClass implements IStructInstantiation<double[], String>{
 		return enumerate;
 	}
 
+	/**
+	 * Attribue un numéro à une classe pour la matrice de confusion
+	 * @return map<String, Integer>
+	 */
 	public Map<String, Integer> matching(){
 		Map<String, Integer> matching = new HashMap<String, Integer>();
 		int cpt=0;
@@ -63,15 +72,25 @@ public class MultiClass implements IStructInstantiation<double[], String>{
 		return matching;
 	}
 	
+	/**
+	 * Crée la matrice de confusion
+	 * @param predictions
+	 * @param gt
+	 */
 	public void confusionMatrix(List<String> predictions, List<STrainingSample<double[], String>> gt){
 		D1Matrix64F matrix = new DenseMatrix64F(enumerate.size(), enumerate.size());
-
+		float taux = 0;
 		for(int i=0; i<predictions.size(); i++){
 			String pred = predictions.get(i);
 			String correct = gt.get(i).output;
-			matrix.set(matching.get(correct),matching.get(pred),matrix.get(matching.get(correct),matching.get(pred) )+1);
+			if(matching.get(correct)<=3 && matching.get(pred)<=3) taux++;
+			if(matching.get(correct)<=6 && matching.get(correct)>3 && matching.get(pred)<=6 && matching.get(pred)>3) taux++;
+			if(matching.get(correct)>6 && matching.get(pred)>6) taux++;
+			matrix.set(matching.get(correct),matching.get(pred),matrix.get(matching.get(correct),matching.get(pred))+1);
 		}
+		System.out.println("Taux de bonne classification : " + taux*100.0/predictions.size());
 		MatrixVisualization.show(matrix, "Matrice de confusion");
+		
 	}
 	
 }
